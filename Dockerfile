@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM cr.loongnix.cn/library/debian:buster
 
 # fuse-device-plugin binary based on architecture
 ARG build_arch

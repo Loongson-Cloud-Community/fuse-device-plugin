@@ -1,5 +1,5 @@
 # Multi architecture builds
-TARGETS = amd64 arm64
+TARGETS = loong64
 PLATFORM = linux
 BUILD_TARGETS = $(TARGETS:=.build)
 BUILD_CI_TARGETS = $(TARGETS:=.docker)
@@ -9,7 +9,7 @@ MANIFEST_PUSH_TARGETS = $(PLATFORM:=.push-manifest)
 BUILD_OPT=""
 IMAGE_TAG=v1.1
 IMAGE_PREFIX=fuse-device-plugin
-IMAGE_REGISTRY=docker.io/soolaugust
+IMAGE_REGISTRY=cr.loongnix.cn/soolaugust
 BINARY=fuse-device-plugin
 
 
@@ -29,7 +29,7 @@ build: $(BUILD_TARGETS)
 PHONY: docker $(BUILD_CI_TARGETS)
 docker: $(BUILD_CI_TARGETS)
 %.docker:
-	TARGET=$(*) docker build . --platform ${PLATFORM}/$(*) -t $(IMAGE_REGISTRY)/$(IMAGE_PREFIX):build-$(*)-${IMAGE_TAG} --build-arg build_arch=${PLATFORM}-${*}
+	TARGET=$(*) docker build . --platform ${PLATFORM}/$(*) -t $(IMAGE_REGISTRY)/$(IMAGE_PREFIX):${IMAGE_TAG} --build-arg build_arch=${PLATFORM}-${*}
 
 #Docker image push
 PHONY: push-image $(IMAGE_PUSH_TARGETS)
